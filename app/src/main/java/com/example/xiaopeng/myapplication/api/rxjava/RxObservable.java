@@ -61,17 +61,16 @@ public class RxObservable {
 //    }
 
     /**
-     * View有data返回值调用
      * 与View的生命周期绑定，在DETACHED的时候取消
      */
-//    public static <T> Observable getObservable(@NonNull Observable<ResponseData<T>> apiObservable, @NonNull RxLinearLayout view) {
-//        //随生命周期自动管理.eg:onCreate(start)->onStop(end)
-//        return apiObservable
-//                .compose(view.bindUntilEvent(RxLinearLayout.ViewEvent.DETACHED))
-//                .onErrorResumeNext(new HttpResultFunction<>())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread());
-//    }
+    public static <T> Observable getObservable(@NonNull Observable<ResponseData<T>> apiObservable, @NonNull RxView view) {
+        //随生命周期自动管理.eg:onCreate(start)->onStop(end)
+        return apiObservable
+                .compose(view.bindUntilEvent(ViewEvent.DETACHED))
+                .onErrorResumeNext(new HttpResultFunction<>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     /**
      * 获取被监听者
