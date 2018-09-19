@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication
 import com.example.xiaopeng.myapplication.utils.AppUtils
 import com.example.xiaopeng.myapplication.utils.GlideUtil
 import com.example.xiaopeng.myapplication.utils.LogUtils
+import com.squareup.leakcanary.LeakCanary
 
 /**
  *
@@ -16,6 +17,11 @@ class MyApplication : MultiDexApplication() {
     override
     fun onCreate() {
         super.onCreate()
+        //初始化LeakCanary
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
 
         AppUtils.getInstance().appContext = this
 

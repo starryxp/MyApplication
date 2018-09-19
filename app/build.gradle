@@ -2,8 +2,31 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+static def releaseTime() {
+    return new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("Asia/Shanghai"))
+}
+
+def API_ENVIRONMENT_DEV = "\"dev\""
+def API_ENVIRONMENT_RELEASE = "\"release\""
+
 android {
-    compileSdkVersion 26
+
+//    signingConfigs {
+//        release {
+//            keyAlias 'saickeymanager'
+//            keyPassword KEY_PASSWORD
+//            storeFile file('../../saickey.jks')
+//            storePassword KEYSTORE_PASSWORD
+//        }
+//        debug {
+//            keyAlias 'passenger'
+//            keyPassword 'saicAnroidPassenger'
+//            storeFile file('passenger')
+//            storePassword 'saicAnroidPassenger'
+//        }
+//    }
+
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.xiaopeng.myapplication"
         minSdkVersion 15
@@ -19,13 +42,31 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+//            signingConfig signingConfigs.release
+            //代码混淆
+            minifyEnabled true
+            //压缩包优化
+            zipAlignEnabled true
+            //移除未调用的资源文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_ENBIRONMENT", "${API_ENVIRONMENT_RELEASE}")
+        }
+        debug {
+//            signingConfig signingConfigs.debug
+            debuggable true
+            buildConfigField("String", "API_ENBIRONMENT", "${API_ENVIRONMENT_DEV}")
         }
     }
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "app_${variant.buildType.name}_VC${defaultConfig.versionCode}_VN${defaultConfig.versionName}_${releaseTime()}.apk"
         }
     }
 
@@ -64,4 +105,8 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+    //添加leakcanary相关的依赖
+    //在release和test版本中，使用的是LeakCanary的no-op版本，也就是没有实际代码和操作的Wrapper版本，只包含LeakCanary和RefWatcher类的空实现，这样不会对生成的APK包体积和应用性能造成影响
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

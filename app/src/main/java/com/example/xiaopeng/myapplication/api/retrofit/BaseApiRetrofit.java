@@ -32,7 +32,10 @@ import okhttp3.ResponseBody;
 public class BaseApiRetrofit {
 
     private final okhttp3.OkHttpClient OkHttpClient;
-    private final static String TAG = "BaseApiRetrofit";
+    private final static String TAG = BaseApiRetrofit.class.getSimpleName();
+    private static final int CONNECT_TIME_OUT = 30;//连接超时时长x秒
+    private static final int READ_TIME_OUT = 30;//读数据超时时长x秒
+    private static final int WRITE_TIME_OUT = 30;//写数据接超时时长x秒
 
     public okhttp3.OkHttpClient getClient() {
         return OkHttpClient;
@@ -109,12 +112,15 @@ public class BaseApiRetrofit {
 
         //OkHttpClient
         OkHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(REWRITE_HEADER_CONTROL_INTERCEPTOR)
-//                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
+                .addInterceptor(REWRITE_HEADER_CONTROL_INTERCEPTOR)
+                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .addInterceptor(new LoggingInterceptor())
 //                .addInterceptor(loggingInterceptor)//设置 Debug Log 模式
-//                .cache(cache)
-//                .cookieJar(cookieJar)
+                .cache(cache)
+                .cookieJar(cookieJar)
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.example.xiaopeng.myapplication.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import com.example.xiaopeng.myapplication.R
 import com.example.xiaopeng.myapplication.app.MyApplication
 import com.example.xiaopeng.myapplication.app.base.BaseActivity
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -20,7 +22,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         mPresenter?.test()
 
+        RxPermissions(this)
+                .request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe {
 
+                }
     }
 
     override fun getLayoutId(): Int {
