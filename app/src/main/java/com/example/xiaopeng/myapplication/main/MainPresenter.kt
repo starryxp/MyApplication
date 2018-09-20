@@ -4,8 +4,8 @@ import com.example.xiaopeng.myapplication.api.ApiRetrofit
 import com.example.xiaopeng.myapplication.api.rxjava.RxObserver
 import com.example.xiaopeng.myapplication.api.exception.ApiException
 import com.example.xiaopeng.myapplication.api.rxjava.RxObservable
-import com.example.xiaopeng.myapplication.response.LoginResponse
-import com.example.xiaopeng.myapplication.response.ResponseData
+import com.example.xiaopeng.myapplication.moudel.response.LoginResponse
+import com.example.xiaopeng.myapplication.moudel.response.ResponseData
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.disposables.Disposable

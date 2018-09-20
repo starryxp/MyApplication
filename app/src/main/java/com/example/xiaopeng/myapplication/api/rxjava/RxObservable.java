@@ -1,7 +1,7 @@
 package com.example.xiaopeng.myapplication.api.rxjava;
 
 
-import com.example.xiaopeng.myapplication.response.ResponseData;
+import com.example.xiaopeng.myapplication.moudel.response.ResponseData;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;

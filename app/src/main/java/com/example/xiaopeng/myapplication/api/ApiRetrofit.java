@@ -1,8 +1,8 @@
 package com.example.xiaopeng.myapplication.api;
 
 import com.example.xiaopeng.myapplication.api.retrofit.BaseApiRetrofit;
-import com.example.xiaopeng.myapplication.response.LoginResponse;
-import com.example.xiaopeng.myapplication.response.ResponseData;
+import com.example.xiaopeng.myapplication.moudel.response.LoginResponse;
+import com.example.xiaopeng.myapplication.moudel.response.ResponseData;
 import com.example.xiaopeng.myapplication.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

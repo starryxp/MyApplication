@@ -3,11 +3,9 @@ package com.example.xiaopeng.myapplication.api.rxjava;
 import com.example.xiaopeng.myapplication.R;
 import com.example.xiaopeng.myapplication.api.exception.ApiException;
 import com.example.xiaopeng.myapplication.api.exception.ExceptionEngine;
-import com.example.xiaopeng.myapplication.app.MyApplication;
 import com.example.xiaopeng.myapplication.mvp.BaseView;
-import com.example.xiaopeng.myapplication.response.ResponseData;
+import com.example.xiaopeng.myapplication.moudel.response.ResponseData;
 import com.example.xiaopeng.myapplication.utils.AppUtils;
-import com.example.xiaopeng.myapplication.utils.LogUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
